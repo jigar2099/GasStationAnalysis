@@ -33,12 +33,12 @@ def get_customers_data():
         print(f"The data provided is {data_str}")
 
         cust_data = data_str.split(",")
-        #validate_data(cust_data)
+
 
         if validate_data(cust_data):
             print("Data is valid!")
             break
-
+    return cust_data
 
 def validate_data(values):
     """
@@ -57,4 +57,17 @@ def validate_data(values):
 
     return True
 
+def update_cust_worksheet(data):
+    """
+    customer sheet update
+    """
+    print("Updateing customer worksheet...\n")
+    cust_worksheet = SHEET.worksheet("customers")
+    cust_worksheet.append_row(data)
+    print(" customers worksheet updated...\n")
+
+
 data = get_customers_data()
+print(data)
+cust_data = [int(num) for num in data]
+update_cust_worksheet(cust_data)
