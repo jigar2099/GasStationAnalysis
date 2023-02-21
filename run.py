@@ -21,8 +21,6 @@ customers = SHEET.worksheet('customers')
 
 data = customers.get_all_values()
 
-print(data)
-
 
 def get_customers_data():
     """
@@ -35,7 +33,6 @@ def get_customers_data():
 
         data_str = input("Enter your data here: ")
         print(f"The customer data provided is {data_str}")
-
 
         cust_data = data_str.split(",")
         if validate_data(cust_data):
@@ -53,7 +50,9 @@ def get_customers_data():
         if validate_data(itev_data):
             print("Data is valid!")
             break
+
     return cust_data, ptev_data, itev_data
+
 
 def validate_data(values):
     """
@@ -61,16 +60,16 @@ def validate_data(values):
     Raises ValueError if the string cannot be converted into int,
     or if there aren't exactly 4 values.
     """
-    #print(values)
     try: 
         [int(value) for value in values]
         if len(values) != 4:
-            raise ValueError(f"Exactly 6 values required, you provided {len(values)}")
+            raise ValueError(f"Exactly 4 values required:{len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again \n")
         return False
 
     return True
+
 
 def update_worksheet(data, sheet_name):
     """
@@ -81,18 +80,16 @@ def update_worksheet(data, sheet_name):
     cust_worksheet.append_row(data)
     print(f" {sheet_name} worksheet updated successfully...\n")
 
-def calculate_non_ev(cust_row,ptev_row,itev_row):
+
+def calculate_non_ev(cust_row, ptev_row, itev_row):
     """
     Calculate number of non-ev customers
     """
     print("Updating non-ev customer sheet...\n")
-
-    
-    nev = [i-(j+k) for i,j,k in zip(cust_row,ptev_row,itev_row)]
+    nev = [i-(j+k) for i, j, k in zip(cust_row, ptev_row, itev_row)]
     non_ev_sheet = SHEET.worksheet("non-ev")
     non_ev_sheet.append_row(nev)
     print("Non-ev worksheet updated successfully...")
-
 
 
 def get_report():
@@ -100,7 +97,7 @@ def get_report():
     Get statistical report of business.
     """
     print("Creating report... \n")
-    unu = SHEET.worksheet("unused").get_all_values()
+
     cust = SHEET.worksheet("customers").get_all_values()
     pt_ev = SHEET.worksheet("public-transport-ev").get_all_values()
     it_ev = SHEET.worksheet("individual-transport-ev").get_all_values()
@@ -111,21 +108,42 @@ def get_report():
     itev_mat = np.array(it_ev)[1:].astype(int)
     nonev_mat = np.array(non_ev)[1:].astype(int)
 
-    cust_avg = np.round(np.mean(cust_mat,axis=0), 2)
-    ptev_avg = np.round(np.mean(ptev_mat,axis=0), 2)
-    itev_avg = np.round(np.mean(itev_mat,axis=0), 2)
-    nonev_avg = np.round(np.mean(nonev_mat,axis=0), 2)
+    cust_avg = np.round(np.mean(cust_mat, axis=0), 2)
+    ptev_avg = np.round(np.mean(ptev_mat, axis=0), 2)
+    itev_avg = np.round(np.mean(itev_mat, axis=0), 2)
+    nonev_avg = np.round(np.mean(nonev_mat, axis=0), 2)
 
-    cust_std = np.round(np.std(cust_mat,axis=0),2)
-    ptev_std = np.round(np.std(ptev_mat,axis=0),2)
-    itev_std = np.round(np.std(itev_mat,axis=0),2)
-    nonev_std = np.round(np.std(nonev_mat,axis=0),2)
+    cust_std = np.round(np.std(cust_mat, axis=0), 2)
+    ptev_std = np.round(np.std(ptev_mat, axis=0), 2)
+    itev_std = np.round(np.std(itev_mat, axis=0), 2)
+    nonev_std = np.round(np.std(nonev_mat, axis=0), 2)
 
     t = PrettyTable([' ', 'East', 'West', 'North', 'South'])
-    t.add_row(['Customers', str(cust_avg[0])+'+/-'+str(cust_std[0]), str(cust_avg[1])+'+/-'+str(cust_std[1]), str(cust_avg[2])+'+/-'+str(cust_std[2]), str(cust_avg[3])+'+/-'+str(cust_std[3])])
-    t.add_row(['PT-EV', str(ptev_avg[0])+'+/-'+str(ptev_std[0]), str(ptev_avg[1])+'+/-'+str(ptev_std[1]), str(ptev_avg[2])+'+/-'+str(ptev_std[2]), str(ptev_avg[3])+'+/-'+str(ptev_std[3])])
-    t.add_row(['IT-EV', str(itev_avg[0])+'+/-'+str(itev_std[0]), str(itev_avg[1])+'+/-'+str(itev_std[1]), str(itev_avg[2])+'+/-'+str(itev_std[2]), str(itev_avg[3])+'+/-'+str(itev_std[3])])
-    t.add_row(['NON-EV', str(nonev_avg[0])+'+/-'+str(nonev_std[0]), str(nonev_avg[1])+'+/-'+str(nonev_std[1]), str(nonev_avg[2])+'+/-'+str(nonev_std[2]), str(nonev_avg[3])+'+/-'+str(nonev_std[3])])
+    t.add_row([
+        'Customers', str(cust_avg[0])+'+/-'+str(cust_std[0]), 
+        str(cust_avg[1])+'+/-'+str(cust_std[1]), 
+        str(cust_avg[2])+'+/-'+str(cust_std[2]), 
+        str(cust_avg[3])+'+/-'+str(cust_std[3])])
+
+    t.add_row([
+        'PT-EV', str(ptev_avg[0])+'+/-'+str(ptev_std[0]), 
+        str(ptev_avg[1])+'+/-'+str(ptev_std[1]), 
+        str(ptev_avg[2])+'+/-'+str(ptev_std[2]), 
+        str(ptev_avg[3])+'+/-'+str(ptev_std[3])])
+
+    t.add_row([
+        'IT-EV', str(itev_avg[0])+'+/-'+str(itev_std[0]), 
+        str(itev_avg[1])+'+/-'+str(itev_std[1]), 
+        str(itev_avg[2])+'+/-'+str(itev_std[2]), 
+        str(itev_avg[3])+'+/-'+str(itev_std[3])])
+
+    t.add_row([
+        'NON-EV', str(nonev_avg[0])+'+/-'+str(nonev_std[0]), 
+        str(nonev_avg[1])+'+/-'+str(nonev_std[1]), 
+        str(nonev_avg[2])+'+/-'+str(nonev_std[2]), 
+        str(nonev_avg[3])+'+/-'+str(nonev_std[3])])
+    print(t)
+
 
 def main():
     """
@@ -135,8 +153,7 @@ def main():
     cust_data = [int(ct) for ct in cust]
     ptev_data = [int(pt) for pt in ptev]
     itev_data = [int(it) for it in itev]
-    data = np.array([cust_data,ptev_data,itev_data])
-    #print(data.shape)
+    #data = np.array([cust_data, ptev_data, itev_data])
     update_worksheet(cust_data, "customers")
     update_worksheet(ptev_data, "public-transport-ev")
     update_worksheet(itev_data, "individual-transport-ev")
