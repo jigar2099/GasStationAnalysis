@@ -64,7 +64,7 @@ def update_cust_worksheet(data):
     print("Updateing customer worksheet...\n")
     cust_worksheet = SHEET.worksheet("customers")
     cust_worksheet.append_row(data)
-    print(" customers worksheet updated...\n")
+    print(" customers worksheet updated successfully...\n")
 
 
 data = get_customers_data()
