@@ -144,6 +144,17 @@ def get_report():
         str(nonev_avg[3])+'+/-'+str(nonev_std[3])])
     print(t)
 
+    labels1 = ["East", "West", "North", "South"]
+    #plt.simple_bar(labels, cust_avg, width=100)
+    plt.simple_stacked_bar(labels1, [ptev_avg, itev_avg, nonev_avg], width = 100, labels = ['PT-EV', 'IT-EV', 'NON-EV'], title = 'Contirbution of EVs in business')
+    #plt.simple_multiple_bar(labels1, [cust_avg, ptev_avg, itev_avg], width=100, labels=["Customers","PT-EV", "IT-EV"])
+    #bins = 60
+    #plt.hist(cust_avg, bins, label = "Customers")
+    plt.theme("matrix")
+    #plt.colorize("red on green, italic",        "red",          "italic",    "green",         True)
+    plt.title("Average Customers till date")
+    plt.show()
+
 
 def main():
     """
