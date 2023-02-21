@@ -24,15 +24,20 @@ def get_customers_data():
     """
     Get customers data from the user
     """
-    print("Please enter customer data from the previous entries")
-    print("Data must be five numbers, separated by commas.")
-    print("Example: 1,200,300,400,500 \n")
+    while True:
+        print("Please enter customer data from the previous entries")
+        print("Data must be five numbers, separated by commas.")
+        print("Example: 1,200,300,400,500 \n")
 
-    data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+        data_str = input("Enter your data here: ")
+        print(f"The data provided is {data_str}")
 
-    cust_data = data_str.split(",")
-    validate_data(cust_data)
+        cust_data = data_str.split(",")
+        #validate_data(cust_data)
+
+        if validate_data(cust_data):
+            print("Data is valid!")
+            break
 
 
 def validate_data(values):
@@ -48,5 +53,8 @@ def validate_data(values):
             raise ValueError(f"Exactly 6 values required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again \n")
+        return False
+
+    return True
 
 get_customers_data()
