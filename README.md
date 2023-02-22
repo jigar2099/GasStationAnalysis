@@ -1,31 +1,15 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+## Gas Station Analysis project
 
-Welcome jigar bhanderi,
+This project is created by considering following assumptions.
+The company has several gaas stations through out the country
+The data consists the information of number of customers each day.
+Gathered data are of North, East, West and South stations.
+Customers are coming to charge their Electric vehicles(EVs) and for other purchase such as small store in gas station or car wash.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+Data is gathered in google sheet, in which different worksheet includes number of public transport EVs, individual transportation EVs, and non-EV(others).
 
-## Reminders
+Here, backend command line app is developed, in which the user can add data in different sheets, and other sheets are updated using google cloud platform. And this app is deployed using Heroku.
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+This app also created one small report mentioning average customers of different class for different regions with uncertainty quantification. And at the end it also create one small bar plot of the data.
 
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+![alt text](CLI-plot.png)
