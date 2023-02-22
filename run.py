@@ -1,10 +1,9 @@
-import gspread
+
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 import numpy as np
-import termplotlib as tpl
 import plotext as plt
 from prettytable import PrettyTable
+import gspread
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
